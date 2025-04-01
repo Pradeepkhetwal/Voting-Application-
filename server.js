@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from "dotenv"
 import bodyParser from 'body-parser';
 import userRoutes from './routes/User.routes.js'
+import candidateRoutes from './routes/candidate.routes.js'
 
 import db from './db/db.js';
 
@@ -17,6 +18,8 @@ app.use(bodyParser.json());
 
 // use the router.
 app.use('/user', userRoutes);
+// use the candidate router.
+app.use('/candidate', candidateRoutes);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`listening at the port ${PORT}`)

@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['voter', 'admin'],
     default: 'voter'
+  },
+  isVoted: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -58,12 +62,13 @@ userSchema.pre('save', async function(next) {
 
 // here we define custom method called as comparePassword in the user schema to check for password authentication.
 
-userSchema.methods.comparePassword= async function (candidatePassword) {
-  try {
-    const isMatch = await bcrypt.compare(candidatePassword, this.password);
-    return isMatch;
-  } catch (err) {
-    throw err;
+userSchema.methods.comparePassword = async function(candidatePassword){
+  try{
+      // Use bcrypt to compare the provided password with the hashed password
+      const isMatch = await bcrypt.compare(candidatePassword, this.password);
+      return isMatch;
+  }catch(err){
+      throw err;
   }
 }
 

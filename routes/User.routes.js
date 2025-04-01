@@ -61,12 +61,13 @@ router.post("/login", async(req, res) => {
       return res.status(400).json({ error: "Aadhar Number and password are required" });
     }
 
-   
+    console.log(aadharCardNumber, password);
 
     //find the user by aadharCardNumber.
 
     const user = await User.findOne({ aadharCardNumber:aadharCardNumber });
 
+    console.log(user);
    
     //if the user doesnot exists or password is incorrect.
     if (!user || !(await user.comparePassword(password))) {
@@ -77,7 +78,6 @@ router.post("/login", async(req, res) => {
 
     const payload = {
       id: user.id,
-   
     }
 
     const token = generateToken(payload)
